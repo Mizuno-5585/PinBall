@@ -20,11 +20,6 @@ public class BrightnessRegulator : MonoBehaviour
     // ターゲットのデフォルトの色
     Color defaultColor = Color.white;
 
-    //スコアを表示するテキスト
-    private GameObject scoreText;
-
-    private int score = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,8 +43,6 @@ public class BrightnessRegulator : MonoBehaviour
         //オブジェクトの最初の色を設定
         myMaterial.SetColor ("_EmissionColor", this.defaultColor*minEmission);
 
-        //シーン中のScoreTextオブジェクトを取得
-        this.scoreText = GameObject.Find("ScoreText");
     }
 
     // Update is called once per frame
@@ -66,37 +59,12 @@ public class BrightnessRegulator : MonoBehaviour
             //現在の角度を小さくする
             this.degree -= this.speed;
         }
-
-        //ScoreTextにスコアを表示
-        this.scoreText.GetComponent<Text> ().text = "Score:" + score;
     }
 
     //衝突時に呼ばれる関数
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision collision)
     {
         //角度を180に設定
         this.degree = 180;
-
-        if (tag == "SmallStarTag")
-		{
-			score += 1;
-            Debug.Log("SmallStarCollision!");
-		}
-        if (tag == "LargeStarTag")
-        {
-            score += 3;
-            Debug.Log("LargeStarCollision!");
-        }
-        if (tag == "SmallCloudTag")
-        {
-            score += 5;
-            Debug.Log("SmallCloudCollision!");
-        }
-        if (tag == "LargeCloudTag")
-        {
-            score += 10;
-            Debug.Log("LargeCloudCollision!");
-        }
-
     }
 }
